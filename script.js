@@ -1,13 +1,14 @@
 (function () {
 
     // Function Constructor
-    var Question = function (question, arrOptions, answer) {
+    var Question = function (question, arrOptions, correctOption) {
         this.question = question;
         this.arrOptions = arrOptions;
-        this.answer = answer;
+        this.correctOption = correctOption;
     };
 
     Question.prototype.askQuestion = function () {
+
         // log the question
         console.log(this.question);
 
@@ -16,17 +17,6 @@
             console.log((i + 1) + '. ' + this.arrOptions[i]);
         }
 
-        // prompt the answer
-        var answer = parseInt(prompt("Please enter your option"));
-
-        // check if the answer is correct and set the flag
-        if (answer === this.answer) {
-            this.flag = 1;
-            console.log("correct");
-        } else {
-            this.flag = 0;
-            console.log('incorrect');
-        }
     };
 
     // Questions
@@ -37,19 +27,31 @@
     var questions = [question1, question2, question3];
 
     function startQuiz() {
-        var score = 0;
+
+        var score, answer;
+        score = 0;
+
         for (var i = 0; i < questions.length; i++) {
+
             questions[i].askQuestion();
-            if (questions[i].flag == 1) {
+
+            answer = parseInt(prompt("Please enter your option"));
+
+            if (questions[i].correctOption == answer) {
+
                 score += 1;
-                console.log('Your score is ' + score);
-                console.log('----------------');
+                console.log('Correct! Your score is ' + score);
+
             } else {
-                console.log('Your score is ' + score);
-                console.log('----------------');
+
+                console.log('Incorrect! Your score is ' + score);
                 continue;
+
             }
         }
+
+        console.log('Quiz is over! Your total score is ' + score);
+
     }
 
     startQuiz();
